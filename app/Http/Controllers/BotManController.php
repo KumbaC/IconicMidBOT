@@ -6,10 +6,14 @@ use BotMan\BotMan\BotMan;
 use App\Conversations\QuizConversation;
 use App\Conversations\PrivacyConversation;
 use App\Conversations\HighscoreConversation;
+use App\Conversations\LoginConversation;
+use App\Conversations\RegisterConversation;
 use App\Http\Middleware\PreventDoubleClicks;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Cache\LaravelCache;
 use BotMan\BotMan\Drivers\DriverManager;
+
+
 
 class BotManController extends Controller
 {
@@ -40,25 +44,58 @@ class BotManController extends Controller
             ]
         ];
 
-        // // Create BotMan instance
+
         $botman = BotManFactory::create($config, new LaravelCache());
 
         $botman->middleware->captured(new PreventDoubleClicks);
 
-        $botman->hears('start|/start', function (BotMan $bot) {
-            $bot->startConversation(new QuizConversation());
+
+
+        $botman->hears('start|/start', function (BotMan $bot) {  //Primera entrada a la empresa
+            $bot->startConversation(new RegisterConversation());
         })->stopsConversation();
 
-        $botman->hears('/highscore|highscore', function (BotMan $bot) {
+      /*   $botman->hears('start|/start', function (BotMan $bot) {
+            $bot->startConversation(new QuizConversation());
+        })->stopsConversation(); */
+
+
+      /*   $botman->hears('login', function (BotMan $bot) {   //Logueo con el bot de telegram
+            $bot->startConversation(new RegisterConversation());
+        });
+
+        $botman->hears('register', function (BotMan $bot) {  // Registrar usuario con el bot de telegram
+            $bot->startConversation(new RegisterConversation());
+        }); */
+
+
+
+       /*  $botman->hears('in|/in', function (BotMan $bot) {  //Primera entrada a la empresa
+            $bot->startConversation(new RegisterConversation());
+        })->stopsConversation();
+
+        $botman->hears('/out|out', function (BotMan $bot) {  //Salida de la empresa
             $bot->startConversation(new HighscoreConversation());
         })->stopsConversation();
 
-        $botman->hears('/about|about', function (BotMan $bot) {
+        $botman->hears('/break|break', function (BotMan $bot) {  //Descanso de 15 minutos
+            $bot->reply('This is a BotMan and Laravel 8 project by Ejimadu Prevail.');
+        })->stopsConversation();
+
+        $botman->hears('/lunch|lunch', function (BotMan $bot) {  //Descanso para comer
+            $bot->reply('This is a BotMan and Laravel 8 project by Ejimadu Prevail.');
+        })->stopsConversation();
+
+        $botman->hears('/back|back', function (BotMan $bot) {  //Regreso de break o lunch.
             $bot->reply('This is a BotMan and Laravel 8 project by Ejimadu Prevail.');
         })->stopsConversation();
 
         $botman->hears('/deletedata|deletedata', function (BotMan $bot) {
             $bot->startConversation(new PrivacyConversation());
+        })->stopsConversation(); */
+
+        $botman->hears('/hola|hola', function (BotMan $bot) {
+            $bot->reply('Hola mamaguevo');
         })->stopsConversation();
 
         // $botman->fallback(function ($bot) {

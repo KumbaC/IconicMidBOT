@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BotManController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +20,7 @@ Route::get('/', function () {
 });
 
 Route::match(['get', 'post'], 'botman', [BotManController::class, 'handle']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
