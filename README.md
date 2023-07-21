@@ -1,4 +1,4 @@
-# Laravel Quiz Bot
+# TelegramBOT IconicMind
 
 > This is a Telegram bot built with botman and Laravel 8.
 
