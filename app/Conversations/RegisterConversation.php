@@ -169,7 +169,9 @@ class RegisterConversation extends Conversation
                 if ($user && password_verify($password, $user->password)) {
                     Auth::login($user);
                     session(['user_id' => $user->id]);
-                    $this->say('Bienvenido | Welcome ✅');
+                    $user = auth()->user();
+                    $nombre = $user->name;
+                    $this->say('Bienvenido | Welcome ✅'. ' ' .  $nombre);
                     $this->showPostmenu();
                 }
 
@@ -180,18 +182,19 @@ class RegisterConversation extends Conversation
 
     private function in()
     {
+        Auth::login();
         // Obtener el usuario autenticado
-        $user = Auth::user();
-        if (!$user) {
-            $this->say('Debes iniciar sesión para ingresar al trabajo. ❌');
-            $this->showMenu();
-            return;
-        }
+       /*  $user_id = session('user_id');
+        $user = User::find($user_id); */
+        $user = auth()->user();
+
+        //$id = $user->id;
 
         $this->say('🔒 ENTRADA AL TRABAJO 🔒');
         $this->say('La hora de ingreso y la fecha de ingreso registrada es ' .  Carbon::now());
         // Obtener la hora y fecha actual
         $now = Carbon::now();
+
         $date = $now->toDateString();
         $time = $now->toTimeString();
 
@@ -202,8 +205,8 @@ class RegisterConversation extends Conversation
         $entry->save();
 
         // Mostrar un mensaje al usuario
-        $this->say('La hora de ingreso y la fecha de ingreso registrada es ' . $now);
-        $this->say('¡Hola ' . $user->name .  '!');
+    /*     $this->say('La hora de ingreso y la fecha de ingreso registrada es ' . $now);
+        $this->say('¡Hola ' . $user->name .  '!'); */
 
     }
 

@@ -13,7 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    {{ $user = auth()->user(); }}
+                    {{ $nombre = $user->name; }}
+                        {{ dd($nombre); }}
                     {{ __('You are logged in!') }}
                 </div>
             </div>
