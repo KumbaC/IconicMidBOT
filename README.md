@@ -14,6 +14,6 @@ You can check it out at [@laraquizprobot](http://t.me/laraquizprobot).
 I am open for new features and improvements, but please talk to me first before working on a pull request.
 
 ## License
-
+ACUERDATE DE DESCARGAR NGROK
 The MIT License (MIT).
 
