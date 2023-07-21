@@ -1,7 +1,7 @@
 # TelegramBOT IconicMind
 
 > This is a Telegram bot built with botman and Laravel 8.
-
+ACUERDATE DE DESCARGAR NGROK
 This bot has questions on different tracks which user can select and answer questions on. 
 User is awarded points based on question.
 User can be added on a global leaderboard at the end of the quiz.
