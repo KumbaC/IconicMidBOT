@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
+
+
 class RegisterConversation extends Conversation
 
 
@@ -164,15 +166,13 @@ class RegisterConversation extends Conversation
                     return;
                 }
 
-                // Buscar al usuario en la base de datos y verificar sus credenciales
-                $user = User::where('email', $email)->first();
-                if ($user && password_verify($password, $user->password)) {
-                    Auth::login($user);
-                    session(['user_id' => $user->id]);
-                    $user = auth()->user();
-                    $nombre = $user->name;
+                if (Auth::attempt(['email' => $email, 'password' => $password])) {
+                    $nombre = auth()->user()->name;
                     $this->say('Bienvenido | Welcome ✅'. ' ' .  $nombre);
                     $this->showPostmenu();
+                } else {
+                    $this->say('Las credenciales son inválidas. ❌');
+                    $this->showMenu();
                 }
 
             });
@@ -180,35 +180,26 @@ class RegisterConversation extends Conversation
          });
      }
 
-    private function in()
-    {
-        Auth::login();
-        // Obtener el usuario autenticado
-       /*  $user_id = session('user_id');
-        $user = User::find($user_id); */
-        $user = auth()->user();
+     private function in()
+     {
+         $user = auth()->user();
+         if (!$user) {
+             // Log in the user if they're not already authenticated
+             Auth::login();
+             $user = auth()->user();
+         }
 
-        //$id = $user->id;
+         // Save the entry to the database
+         $entry = working_time::create([
+             'user_id' => $user->id,
+             'entry_date' => now(),
+         ]);
+         $entry->save();
 
-        $this->say('🔒 ENTRADA AL TRABAJO 🔒');
-        $this->say('La hora de ingreso y la fecha de ingreso registrada es ' .  Carbon::now());
-        // Obtener la hora y fecha actual
-        $now = Carbon::now();
-
-        $date = $now->toDateString();
-        $time = $now->toTimeString();
-
-        // Guardar la entrada en la base de datos
-        $entry = new working_time();
-        $entry->user_id = $user->id;
-        $entry->entry_date = $now;
-        $entry->save();
-
-        // Mostrar un mensaje al usuario
-    /*     $this->say('La hora de ingreso y la fecha de ingreso registrada es ' . $now);
-        $this->say('¡Hola ' . $user->name .  '!'); */
-
-    }
+         // Show a message to the user
+         $this->say('🔒 ENTRADA AL TRABAJO 🔒');
+         $this->say("La hora de ingreso y la fecha de ingreso registrada es {$entry->entry_date}");
+     }
 
 
 
