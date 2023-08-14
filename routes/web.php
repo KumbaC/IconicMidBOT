@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\BotManController;
+use App\Models\Position;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkingTimeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +28,7 @@ Route::match(['get', 'post'], 'botman', [BotManController::class, 'handle']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('positions', PositionController::class,)->names('admin.positions');
+Route::resource('users', UserController::class,)->names('admin.users');
+Route::resource('working-time', WorkingTimeController::class,)->names('admin.working');

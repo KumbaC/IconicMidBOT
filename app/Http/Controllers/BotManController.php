@@ -55,52 +55,24 @@ class BotManController extends Controller
             $bot->startConversation(new RegisterConversation());
         })->stopsConversation();
 
-      /*   $botman->hears('start|/start', function (BotMan $bot) {
-            $bot->startConversation(new QuizConversation());
-        })->stopsConversation(); */
 
-
-      /*   $botman->hears('login', function (BotMan $bot) {   //Logueo con el bot de telegram
-            $bot->startConversation(new RegisterConversation());
-        });
-
-        $botman->hears('register', function (BotMan $bot) {  // Registrar usuario con el bot de telegram
-            $bot->startConversation(new RegisterConversation());
-        }); */
-
-
-
-       /*  $botman->hears('in|/in', function (BotMan $bot) {  //Primera entrada a la empresa
-            $bot->startConversation(new RegisterConversation());
-        })->stopsConversation();
-
-        $botman->hears('/out|out', function (BotMan $bot) {  //Salida de la empresa
-            $bot->startConversation(new HighscoreConversation());
-        })->stopsConversation();
-
-        $botman->hears('/break|break', function (BotMan $bot) {  //Descanso de 15 minutos
-            $bot->reply('This is a BotMan and Laravel 8 project by Ejimadu Prevail.');
-        })->stopsConversation();
-
-        $botman->hears('/lunch|lunch', function (BotMan $bot) {  //Descanso para comer
-            $bot->reply('This is a BotMan and Laravel 8 project by Ejimadu Prevail.');
-        })->stopsConversation();
-
-        $botman->hears('/back|back', function (BotMan $bot) {  //Regreso de break o lunch.
-            $bot->reply('This is a BotMan and Laravel 8 project by Ejimadu Prevail.');
-        })->stopsConversation();
-
-        $botman->hears('/deletedata|deletedata', function (BotMan $bot) {
-            $bot->startConversation(new PrivacyConversation());
-        })->stopsConversation(); */
 
         $botman->hears('/hola|hola', function (BotMan $bot) {
-            $bot->reply('Hola mamaguevo');
+            $bot->reply('👋 Hola bienvenido al bot de Iconic Mind. Para comenzar escribe /start si necesitas ayuda escribe /help');
         })->stopsConversation();
 
-        // $botman->fallback(function ($bot) {
-        //     $bot->reply("Sorry, I am just a Laravel quiz bot. Type 'start' or click on '/start to begin. See menu for other commands");
-        // });
+        $botman->hears('/help|help', function (BotMan $bot) {
+            $bot->reply('¿En que puedo ayudarte?, recuerda que para comenzar escribe /start en caso de que no estes registrado, habla con tu supervisor. 👔');
+        })->stopsConversation();
+
+        $botman->hears('/commands|commands', function (BotMan $bot) {
+            $bot->reply('Comandos disponibles: /start, /help, /hola, /commands');
+        })->stopsConversation();
+
+
+
+
+
 
         $botman->listen();
     }

@@ -17,9 +17,22 @@ class CreateWorkingTimesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->datetime('entry_date'); //FECHA DE ENTRADA
+            $table->boolean('centry')->nullable()->default(0); // 1 Entro a tiempo| 0 entro tarde
+
+            $table->time('lunch_time')->nullable(); //ALMUERZO
+            $table->time('back_lunch')->nullable(); //REGRESO DEL LUNCH Y BREAK
+
             $table->boolean('break')->default(0); //DESCANSO DE 15 MINUTOS
-            $table->time('lunch_time')->nullable(); //DESCANSO DE 15 MINUTOS
-            $table->boolean('back')->nullable(); //REGRESO DEL LUNCH Y BREAK
+            $table->boolean('break_two')->default(0); //DESCANSO DE 15 MINUTOS
+
+            $table->time('break_time')->nullable(); //TIME DEL BREAK
+            $table->time('time_break_two')->nullable(); //TIME DEL SEGUNDO BREAK
+
+            $table->time('back_break')->nullable(); //REGRESO DEL LUNCH Y BREAK
+            $table->time('back_break_two')->nullable(); //REGRESO DEL LUNCH Y BREAK
+
+            $table->datetime('out')->nullable(); //FIN DE LA JORNADA LABORAL
+            $table->boolean('cout')->nullable()->default(0); // 1 Salio a tiempo | 0 salio tarde
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class working_time extends Model
 {
@@ -13,7 +14,7 @@ class working_time extends Model
 
         //Relación uno a muchos
     public function user(){
-        return $this->belongsTo(user::class);
+        return $this->belongsTo(User::class);
     }
 
 }
